@@ -15,6 +15,10 @@ $(document).ready(function(){
         console.log("button was clicked");
         getAddress($('#uniName').val());
     });
+		$('#signup').click(function(){
+				console.log("Signing up");
+				signUp($('#signName').val(), $('#signPassword').val());
+		});
 });
 
 // Given a string of the university name
@@ -35,11 +39,11 @@ function getAddress(uniName){
                 var address_comp = data.results[0].address_components;
                 var state = get_component(address_comp, "administrative_area_level_1");
                 var country = get_component(address_comp, "country");
-				var city = get_component(address_comp,'locality');
-				console.log("City:" + city);
-				console.log("Get Address: " + address); 
-				$("#basicAddress").hide();
-				$("#basicAddress").empty();
+								var city = get_component(address_comp,'locality');
+								console.log("City:" + city);
+								console.log("Get Address: " + address); 
+								$("#basicAddress").hide();
+								$("#basicAddress").empty();
                 $('#basicAddress').
                     append($('<h4>').text("Address: "+address)).
                     slideDown(800);
@@ -50,7 +54,7 @@ function getAddress(uniName){
                 crime(country, state);
                 restaurant_search(location);
                 lib_search(location);
-				qualityOfLife(city); 
+								qualityOfLife(city); 
             } catch (TypeError) {
                 alert("invalid university name!");
             }
@@ -102,8 +106,8 @@ function callback(results, status) {
             $('#restaurants').
                 append($('<li>').text(results[i].name)).
                 append($('<ul>').
-					append($('<li>').text(rate)).css({"list-style-type": "circle"}).
-					append($('<li>').text(address)).css({"list-style-type": "circle"})).
+											 append($('<li>').text(rate)).css({"list-style-type": "circle"}).
+											 append($('<li>').text(address)).css({"list-style-type": "circle"})).
                 slideDown(800);
         }
     } else {
@@ -155,8 +159,8 @@ function callback_L(results, status) {
             $('#libraries').
                 append($('<li>').text(results[i].name)).
                 append($('<ul>').
-					append($('<li>').text(rate)).css({"list-style-type": "circle"}).
-				    append($('<li>').text(address)).css({"list-style-type": "circle"})).
+											 append($('<li>').text(rate)).css({"list-style-type": "circle"}).
+											 append($('<li>').text(address)).css({"list-style-type": "circle"})).
                 slideDown(800);
         }
         icon_flag = true;
@@ -219,18 +223,18 @@ function get_component(add, target) {
 
 // use api to find crime counts for US
 function crime(country, state) {
-	console.log(country + ' ' + state);
+		console.log(country + ' ' + state);
     $("#info").empty();
     let hate_crime = 'https://api.usa.gov/crime/fbi/ucr/hc/count/states/' + state + 
-    '/bias_name?page=1&per_page=100&output=json&api_key=' + fbi_key;
+						'/bias_name?page=1&per_page=100&output=json&api_key=' + fbi_key;
     let participation = 'https://api.usa.gov/crime/fbi/ucr/participation/states/' + state + 
-    '?page=1&per_page=10&output=json&api_key=' + fbi_key;
+						'?page=1&per_page=10&output=json&api_key=' + fbi_key;
 
     if (country != 'US') {
         console.log('Unsupport region for crime data.');
         $("#info").
-			append($('<h4>').text("State level crime rate information(data based on FBI Crime Data)")).
-			append($('<p>').text("Unsupported region for crime data."));
+						append($('<h4>').text("State level crime rate information(data based on FBI Crime Data)")).
+						append($('<p>').text("Unsupported region for crime data."));
     } else if (state == '') {
         console.log('invalid address, no abberivation of state found.');
     } else {
@@ -256,57 +260,74 @@ function crime(country, state) {
                             }
                         }
                         crime_rate = parseFloat(crime_count / population * 100000).toPrecision(5);
-						let color = 'red';
-						if (crime_rate < 2.5){
-							color = 'yellow';
-						}
-						if (crime_rate < 1.25){
-							color = 'green';
-						}
-						$("#info").
-							append($('<h4>').text("State level crime rate information(data based on FBI Crime Data)")).
-							append($('<li>').text("total population: " + population)).
-							append($('<li>').text("crime rate over 100,000: ").append($('<p>').text(crime_rate).css({'color':color,'display':'inline'})));
+												let color = 'red';
+												if (crime_rate < 2.5){
+														color = 'yellow';
+												}
+												if (crime_rate < 1.25){
+														color = 'green';
+												}
+												$("#info").
+														append($('<h4>').text("State level crime rate information(data based on FBI Crime Data)")).
+														append($('<li>').text("total population: " + population)).
+														append($('<li>').text("crime rate over 100,000: ").append($('<p>').text(crime_rate).css({'color':color,'display':'inline'})));
+										},
+										error: function(xhr, status, error){
+												console.log(eval('('+xhr.responseText+')'));
+										}
+								});
 						},
-					error: function(xhr, status, error){
-						console.log(eval('('+xhr.responseText+')'));
-					}
+						error: function(xhr, status, error){
+								console.log(eval('('+xhr.responseText+')'));
+						}
 				});
-			},
-			error: function(xhr, status, error){
-				console.log(eval('('+xhr.responseText+')'));
-			}
-		});
-	}   
+		}   
 }
 
 
 // Gets the quality of living by city and appends it to the quality list
 function qualityOfLife(city){
-	$('#quality').hide();
-	$('#quality').empty();
-	$('#qualityheader').slideDown(400);
-	$.ajax({
-		type:"GET",
-		url:'https://api.teleport.org/api/urban_areas/slug:' + city.replace(/\ /g,'-').toLowerCase()+'/scores/',
-	    dataType: 'json',
-		success: function(data){
-			try{
-				$.each(data.categories, function(i, item){
-					$('<li>')
-						.text(item.name + ': ' +item['score_out_of_10'])
-						.appendTo('#quality');
-				    });
-				$('#quality').slideDown(400);
-			} catch (TypeError){
-				console.log("TypeError in quality of life"); // for debug
-			}
-		},
-		error: function(xhr, status, error){
-			$('<li>')
-				.text("City Not Supported")
-				.appendTo('#quality'); 
-			$('#quality').slideDown(400);
-		}
-	});
+		$('#quality').hide();
+		$('#quality').empty();
+		$('#qualityheader').slideDown(400);
+		$.ajax({
+				type:"GET",
+				url:'https://api.teleport.org/api/urban_areas/slug:' + city.replace(/\ /g,'-').toLowerCase()+'/scores/',
+				dataType: 'json',
+				success: function(data){
+						try{
+								$.each(data.categories, function(i, item){
+										$('<li>')
+												.text(item.name + ': ' +item['score_out_of_10'])
+												.appendTo('#quality');
+								});
+								$('#quality').slideDown(400);
+						} catch (TypeError){
+								console.log("TypeError in quality of life"); // for debug
+						}
+				},
+				error: function(xhr, status, error){
+						$('<li>')
+								.text("City Not Supported")
+								.appendTo('#quality'); 
+						$('#quality').slideDown(400);
+				}
+		});
+}
+
+function signUp(signName, signPassword){
+		$.ajax({
+				type:"POST",
+				url:'http://localhost:3000/signup',
+				data: { username: signName,
+								password: signPassword},
+				success: function(data){
+						$('#signMessage').text("Successfully Signed Up!").css('color','green');
+				},
+				error: function(xhr, status, error){
+						// Add proper error messages
+						$('#signMessage').text("Failure!").css('color','red');
+						
+				}
+		});
 }
