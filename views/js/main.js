@@ -326,7 +326,7 @@ function signUp(signName, signPassword){
 				},
 				error: function(xhr, status, error){
 						// Add proper error messages
-						$('#signMessage').text("Failure!").css('color','red');
+						$('#signMessage').text(xhr.responseText).css('color','red');
 						
 				}
 		});
