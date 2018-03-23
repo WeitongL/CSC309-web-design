@@ -33,7 +33,10 @@ app.post('/signup/', function(req, res){
 		var user = req.body.username;
 		var pass = req.body.password;
 		MongoClient.connect(uri, function(err, client){
-				if(!pass)res.status(500).send("Password cannot be empty.");
+				if(!pass){
+					res.status(500).send("Password cannot be empty.");
+				client.close();
+				}
 				if (err) console.log(err);
 				var db = client.db("wtdb");
 				db.collection("users").findOne({username:user}, function (error, result){
