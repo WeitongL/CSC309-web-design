@@ -19,6 +19,11 @@ $(document).ready(function(){
 				console.log("Signing up");
 				signUp($('#signName').val(), $('#signPassword').val());
 		});
+
+    $('#login').click(function(){
+            console.log("Logging in");
+            logIn($('#userName').val(), $('#password').val());
+    });
 });
 
 // Given a string of the university name
@@ -330,4 +335,18 @@ function signUp(signName, signPassword){
 						
 				}
 		});
+}
+
+function logIn(logName, passwd) {
+        $.ajax({
+                type:"POST",
+                url: 'http://localhost:3000/login',
+                data: { username: logName, password: passwd},
+                success: function(data){
+                        $('#loginMessage').text("Login Successful!").css('color', 'green');
+                },
+                error: function(xhr, status, error){
+                        $('#loginMessage').text(xhr.responseText).css('color', 'red');
+                }
+        });
 }

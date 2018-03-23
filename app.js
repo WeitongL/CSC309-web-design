@@ -24,6 +24,34 @@ app.get('/', function(req, res){
 		res.render('index.ejs');
 });
 
+app.post('/login/', function(req, res) {
+        console.log(req.body);
+        var user1 = req.body.username;
+        var pass1 = req.body.password;
+        MongoClient.connect(uri, function(err, client) {
+            if (!pass1){
+                res.status(500).send("Enter the password.");
+            client.close();
+            }
+            if (err) {
+                console.log(err);
+            }
+            var db = client.db("wtdb");
+            db.collection("users").findOne({$and: [{username: user1}, {password: pass1}]}, function(error, result) {
+                //if username and password is correct
+                if (result) {
+                    console.log("success");
+                    res.status(200).send("successful");
+                    client.close();
+                }
+                else {
+                    res.status(500).send("Invalid username or password!");
+                    client.close();
+                }
+            });
+        });
+});
+
 // See the front end's username and password
 app.post('/signup/', function(req, res){
 		// req.body is the json
