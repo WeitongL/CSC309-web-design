@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 
 const app = express();
-var uri = "mongodb+srv://uoftunilife:QTiv0EvogdhCrvn9@unilife-uoo56.mongodb.net";
+var uri = "mongodb://a3:1234@ds153752.mlab.com:53752/wtdb";
 // Read responses in a parsed way
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -34,7 +34,7 @@ app.post('/signup/', function(req, res){
 		var pass = req.body.password;
 		MongoClient.connect(uri, function(err, client){
 				if (err) console.log(err);
-				var db = client.db("test");
+				var db = client.db("wtdb");
 				db.collection("users").findOne({username:user}, function (error, result){
 						if (result){
 								// If the username is in our database, send an error back
@@ -49,7 +49,7 @@ app.post('/signup/', function(req, res){
 												console.log("Was added"); 
 										}
 										else{
-												console.log("Was not added");
+												console.log(error2);
 										}
 								});
 								res.status(200).send("Worked!");
