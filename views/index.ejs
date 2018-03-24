@@ -68,6 +68,10 @@
             from {opacity: 0;}
             to {opacity: 1;}
         }
+        .nopadding {
+        padding: 0 !important;
+        margin: 0 !important;
+        }
     </style>
     </head>
     <body>
@@ -125,21 +129,21 @@
         </div>
         <div class="row">
         <div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-        <div class="col-xs-12 col-lg-10" style="background-color:#80ced6" id="basicAddress">
-            
+        <div class="col-xs-12 col-lg-10" style="background-color:#80ced6" id="basicAdd">
+            <div class="row">
+            <div class="col-xs-12 col-lg-9 col-md-9" style="background-color:#ff8c00" id="basicAddress">
+                
+            </div>
+            <div class="col-xs-12 col-lg-2 col-md-2" style="background-color:#80ced6" id="basicBar">
+                <label class="invis-label">&nbsp;</label>
+                <button type="submit" class="btn btn-primary btn-sm" id="addFav">Add Favourite</button>
+                <script>
+                    document.getElementById("addFav").style.display = "none";
+                </script>
+            </div>
+            <div class="col-lg-1 hidden-md-down" style="background-color:#80ced6"></div>
+            </div>
         </div>
-
-        
-        <div class="col-xs-12 col-lg-10" style="background-color:#80ced6" id="basicBar">
-       <div class="col-xs-12 col-md-3">
-        <label class="invis-label">&nbsp;</label>
-        <button type="submit" class="btn btn-primary btn-block" id="addFav">Add Favourite</button>
-        <script>
-            document.getElementById("addFav").style.display = "none";
-        </script>
-        </div>
-        </div>
-
 
         <div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
         </div>

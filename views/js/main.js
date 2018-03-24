@@ -44,15 +44,16 @@ function getAddress(uniName){
                 var address_comp = data.results[0].address_components;
                 var state = get_component(address_comp, "administrative_area_level_1");
                 var country = get_component(address_comp, "country");
-								var city = get_component(address_comp,'locality');
-								console.log("City:" + city);
-								console.log("Get Address: " + address); 
-								$("#basicAddress").hide();
-								$("#basicAddress").empty();
+				var city = get_component(address_comp,'locality');
+				console.log("City:" + city);
+				console.log("Get Address: " + address); 
+                $("#basicAdd").slideDown(800);
+                $("#basicAddress").hide();
+                $("#basicBar").hide();
+                $("#basicAddress").empty();
                 $('#basicAddress').
                     append($('<h4>').text("Address: "+address)).
                     slideDown(800);
-                $("#basicBar").hide();
                 if (login_status == true) {
                     $("#basicBar").slideDown(800);
                     document.getElementById("addFav").style.display = "";
