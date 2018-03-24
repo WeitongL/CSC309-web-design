@@ -5,7 +5,7 @@ var fbi_key = 'iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv';
 var icon_flag = true;
 var map;
 console.log("Loaded");
-
+var login_status = false;
 // Gets the address users searched
 // When they clicked submit button
 $(document).ready(function(){
@@ -52,6 +52,11 @@ function getAddress(uniName){
                 $('#basicAddress').
                     append($('<h4>').text("Address: "+address)).
                     slideDown(800);
+                $("#basicBar").hide();
+                if (login_status == true) {
+                    $("#basicBar").slideDown(800);
+                    document.getElementById("addFav").style.display = "";
+                }    
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: location,
                     zoom: 15
@@ -344,6 +349,7 @@ function logIn(logName, passwd) {
                 data: { username: logName, password: passwd},
                 success: function(data){
                         $('#loginMessage').text("Login Successful!").css('color', 'green');
+                        login_status = true;
                 },
                 error: function(xhr, status, error){
                         $('#loginMessage').text(xhr.responseText).css('color', 'red');
