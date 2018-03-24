@@ -2,6 +2,7 @@ const express = require('express');
 const html = require('html');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 var MongoClient = require('mongodb').MongoClient;
 
 const app = express();
@@ -9,6 +10,11 @@ var uri = "mongodb://a3:1234@ds153752.mlab.com:53752/wtdb";
 // Read responses in a parsed way
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session({
+	secret: 'unilife', 
+    resave: false,
+    saveUninitialized: true
+}));
 
 
 // Set where to look for templates
@@ -30,8 +36,8 @@ app.post('/login/', function(req, res) {
         var pass1 = req.body.password;
         MongoClient.connect(uri, function(err, client) {
             if (!pass1){
-                res.status(500).send("Enter the password.");
-            client.close();
+            	client.close();
+                return res.status(500).send("Enter the password.");
             }
             if (err) {
                 console.log(err);
@@ -41,6 +47,7 @@ app.post('/login/', function(req, res) {
                 //if username and password is correct
                 if (result) {
                     console.log("success");
+                    req.session.user = result;
                     res.status(200).send("successful");
                     client.close();
                 }

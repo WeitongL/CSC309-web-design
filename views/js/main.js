@@ -333,11 +333,11 @@ function signUp(signName, signPassword){
 				data: { username: signName,
 								password: signPassword},
 				success: function(data){
-						$('#signMessage').text("Successfully Signed Up!").css('color','green');
+						$('#signMessage').empty().text("Successfully Signed Up!").css('color','green');
 				},
 				error: function(xhr, status, error){
 						// Add proper error messages
-						$('#signMessage').text(xhr.responseText).css('color','red');
+						$('#signMessage').empty().text(xhr.responseText).css('color','red');
 						
 				}
 		});
@@ -349,11 +349,11 @@ function logIn(logName, passwd) {
                 url: 'http://localhost:3000/login',
                 data: { username: logName, password: passwd},
                 success: function(data){
-                        $('#loginMessage').text("Login Successful!").css('color', 'green');
+                        $('#loginMessage').empty().text("Login Successful!").css('color', 'green');
                         login_status = true;
                 },
                 error: function(xhr, status, error){
-                        $('#loginMessage').text(xhr.responseText).css('color', 'red');
+                        $('#loginMessage').empty().text(xhr.responseText).css('color', 'red');
                 }
         });
 }
