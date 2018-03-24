@@ -45,8 +45,16 @@ app.post('/login/', function(req, res) {
                     client.close();
                 }
                 else {
-                    res.status(500).send("Invalid username or password!");
-                    client.close();
+                    db.collection("users").findOne({username:user1}, function(error2, result2) {
+                    if (result2) {
+                        res.status(500).send("Invalid password!");
+                        client.close();
+                    }
+                    else {
+                        res.status(500).send("Invalid username!");
+                        client.close();
+                    }
+                });
                 }
             });
         });
