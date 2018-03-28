@@ -31,40 +31,40 @@ app.get('/', function(req, res){
 });
 
 app.post('/login/', function(req, res) {
-        console.log(req.body);
-        var user1 = req.body.username;
-        var pass1 = req.body.password;
-        MongoClient.connect(uri, function(err, client) {
-            if (!pass1){
-            	client.close();
-                return res.status(500).send("Enter the password.");
+    console.log(req.body);
+    var user1 = req.body.username;
+    var pass1 = req.body.password;
+    MongoClient.connect(uri, function(err, client) {
+        if (!pass1){
+            client.close();
+            return res.status(500).send("Enter the password.");
+        }
+        if (err) {
+            console.log(err);
+        }
+        var db = client.db("wtdb");
+        db.collection("users").findOne({$and: [{username: user1}, {password: pass1}]}, function(error, result) {
+            //if username and password is correct
+            if (result) {
+                console.log("success");
+                req.session.user = result;
+                res.status(200).send("successful");
+                client.close();
             }
-            if (err) {
-                console.log(err);
-            }
-            var db = client.db("wtdb");
-            db.collection("users").findOne({$and: [{username: user1}, {password: pass1}]}, function(error, result) {
-                //if username and password is correct
-                if (result) {
-                    console.log("success");
-                    req.session.user = result;
-                    res.status(200).send("successful");
-                    client.close();
-                }
-                else {
-                    db.collection("users").findOne({username:user1}, function(error2, result2) {
+            else {
+                db.collection("users").findOne({username:user1}, function(error2, result2) {
                     if (result2) {
                         res.status(500).send("Invalid password!");
                         client.close();
                     }
-                    else {
-                        res.status(500).send("Invalid username!");
-                        client.close();
-                    }
-                });
-                }
-            });
+										else {
+												res.status(500).send("Invalid username!");
+												client.close();
+										}
+								});
+            }
         });
+    });
 });
 
 // See the front end's username and password
@@ -105,6 +105,17 @@ app.post('/signup/', function(req, res){
 				});
 		}); 
 
+});
+
+app.post('/favourite', function(req,res){
+		if (req.session.user){
+				var address = req.body.fav;
+				console.log("Successfully received favourite");
+				console.log(address); 
+				res.status(200).send(address);
+		} else{
+				res.status(500).send("User is not logged in!");
+		}
 });
 
 app.listen(3000,() => console.log("Listening"));

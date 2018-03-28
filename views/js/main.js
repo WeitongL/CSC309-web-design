@@ -4,8 +4,11 @@ var map_javascript_key = 'AIzaSyA-CSStQZ-EtiP6urWuQUm2FlWoUTQPtGA';
 var fbi_key = 'iiHnOKfno2Mgkt5AynpvPpUQTEyxE77jo1RU8PIv';
 var icon_flag = true;
 var map;
+var usersession;
+var userpass;
 console.log("Loaded");
 var login_status = false;
+
 // Gets the address users searched
 // When they clicked submit button
 $(document).ready(function(){
@@ -21,9 +24,11 @@ $(document).ready(function(){
 		});
 
     $('#login').click(function(){
-            console.log("Logging in");
-            logIn($('#userName').val(), $('#password').val());
+        console.log("Logging in");
+        logIn($('#userName').val(), $('#password').val());
     });
+
+		$('#addFav').click(addFavourite);
 });
 
 // Given a string of the university name
@@ -44,15 +49,15 @@ function getAddress(uniName){
                 var address_comp = data.results[0].address_components;
                 var state = get_component(address_comp, "administrative_area_level_1");
                 var country = get_component(address_comp, "country");
-				var city = get_component(address_comp,'locality');
-				console.log("City:" + city);
-				console.log("Get Address: " + address); 
+								var city = get_component(address_comp,'locality');
+								console.log("City:" + city);
+								console.log("Get Address: " + address); 
                 $("#basicAdd").slideDown(800);
                 $("#basicAddress").hide();
                 $("#basicBar").hide();
                 $("#basicAddress").empty();
                 $('#basicAddress').
-                    append($('<h4>').text("Address: "+address)).
+                    append($('<h4>').text(address)).
                     slideDown(800);
                 if (login_status == true) {
                     $("#basicBar").slideDown(800);
@@ -344,16 +349,34 @@ function signUp(signName, signPassword){
 }
 
 function logIn(logName, passwd) {
-        $.ajax({
-                type:"POST",
-                url: 'http://localhost:3000/login',
-                data: { username: logName, password: passwd},
-                success: function(data){
-                        $('#loginMessage').empty().text("Login Successful!").css('color', 'green');
-                        login_status = true;
-                },
-                error: function(xhr, status, error){
-                        $('#loginMessage').empty().text(xhr.responseText).css('color', 'red');
-                }
-        });
+    $.ajax({
+        type:"POST",
+        url: 'http://localhost:3000/login',
+        data: { username: logName, password: passwd},
+        success: function(data){
+            $('#loginMessage').empty().text("Login Successful!").css('color', 'green');
+            login_status = true;
+				},
+        error: function(xhr, status, error){
+            $('#loginMessage').empty().text(xhr.responseText).css('color', 'red');
+        }
+    });
+}
+
+function addFavourite(){
+		console.log("adding favourite");
+		var address = $('#basicAddress').text();
+		var uniName = $('#uniName').val();
+		$.ajax({
+				type:"POST",
+				url: 'favourite',
+				data: {name:uniName,fav:address},
+				success: function(data){
+						console.log("successfully added favourite");
+						console.log(data);
+				},
+				error: function(xhr, status, error){
+						console.log(xhr.responseText);
+				}
+		});
 }
