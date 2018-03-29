@@ -127,69 +127,60 @@
         <div class="col-sm-1 hidden-xs" style="background-color:#fefbd8"></div>
         <div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
         </div>
-				<div class="row" id="uniRow" style="display:none">
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-
-						<div class="col-xs-12 col-lg-10" style="background-color:#80ced6">
-								<center>
-										<h4 id="uniHeader">See Favourite Universities</h4>
-								</center>
-								<div id="savedUnis">
-								</div>
-						</div>
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-				</div>
-				<div class="row">
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-						<div class="col-xs-12 col-lg-10" style="background-color:#80ced6" id="basicAdd">
-								<div class="row">
+        <div class="row">
+        <div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+        <div class="col-xs-12 col-lg-10" style="background-color:#80ced6" id="basicAdd">
+          <div class="row">
 						
-										<div class="col-xs-12 col-lg-2" style="background-color:#0d328f" id="basicBar">
-												<button type="submit" class="btn btn-secondary btn-block" id="addFav" style="display:none">Add Favourite</button>
-										</div>
-										<div class="col-xs-12 col-lg-8" style="background-color:#ff8c00" id="basicAddress">
+            <div class="col-xs-12 col-lg-2" style="background-color:#0d328f" id="basicBar">
+              <button type="submit" class="btn btn-secondary btn-block" id="addFav" style="display:none">Add Favourite</button>
+                <!-- <script> -->
+                <!--     document.getElementById("addFav").style.display = "none"; -->
+                <!-- </script> -->
+            </div>
+            <div class="col-xs-12 col-lg-8" style="background-color:#ff8c00" id="basicAddress">
                 
-										</div>
-										<div class="col-lg-2 hidden-md-down" style="background-color:#0d328f"></div>
-								</div>
-						</div>
+            </div>
+            <div class="col-lg-2 hidden-md-down" style="background-color:#0d328f"></div>
+            </div>
+        </div>
 
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-				</div>
-				<div class="row">
-						<div class="col-lg-2 hidden-md-down" style="background-color:#abcd12">
+        <div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+        </div>
+        <div class="row">
+			<div class="col-lg-2 hidden-md-down" style="background-color:#abcd12">
 								
-						</div>
-						<div class="col-xs-8 col-lg-8" style="background-color:#80ced6" id="map">
-								<script> 
-								 map = new google.maps.Map(document.getElementById('map'), {
-										 center: {lat: 43.6628917, lng: -79.3956564}, // default: University of Toronto
-										 zoom: 15
-								 })
-								</script>
-						</div>
-						<div class="col-lg-2 hidden-md-down" style="background-color:#abcd12" id="info"></div>
-				</div>
-				<div class="row">
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-5" style="background-color:#A9A9A9" id="restaurants">
+			</div>
+			<div class="col-xs-8 col-lg-8" style="background-color:#80ced6" id="map">
+				<script> 
+				    map = new google.maps.Map(document.getElementById('map'), {
+					center: {lat: 43.6628917, lng: -79.3956564}, // default: University of Toronto
+					zoom: 15
+					})
+				</script>
+			</div>
+			<div class="col-lg-2 hidden-md-down" style="background-color:#abcd12" id="info"></div>
+        </div>
+        <div class="row">
+			<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-5" style="background-color:#A9A9A9" id="restaurants">
             
-						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-5" style="background-color:#00FFFF" id="libraries">
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-5" style="background-color:#00FFFF" id="libraries">
 
-						</div>
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-				</div>
-				<div class="row">
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-						<div class="col-xs-12 col-lg-10" style='background-color:#B4CD9A'>
-								<h4 id="qualityheader" style='display:none'>City's Quality of Living out of 10</h4>
-								<ul id="quality">
-								</ul>
-						</div>
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-				</div>
-				</div>
+			</div>
+			<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+        </div>
+			<div class="row">
+				<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+					<div class="col-xs-12 col-lg-10" style='background-color:#B4CD9A'>
+						<h4 id="qualityheader" style='display:none'>City's Quality of Living out of 10</h4>
+						<ul id="quality">
+						</ul>
+					</div>
+				<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+			</div>
+			</div>
         </div>
         <!--Log in page-->
         <div id="Login" class="tabcontent" style="background-color:#abcd12">
@@ -198,64 +189,64 @@
                     <div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
                     <div class="col-sm-1 hidden-xs" style="background-color:#fefbd8"></div>
                     <div class="col-xs-12 col-sm-10 col-lg-8" style="background-color:#80ced6">
-												<center>
-														<div class="container-fluid">
-																<div class="row">
-																		<div class="col-xs-12 col-lg-12">
-																				<h1>Login</h1>
-																		</div>
-																		<div class="col-xs-12 col-lg-12">
-																				<div class="form-group">
-																						<label for="user">Username:</label>
-																						<input type="text" class="form-control" id="userName" placeholder="Enter Your Username Here">
-																						<label for="pass">Password:</label>
-																						<input type="password" class="form-control" id="password" placeholder="Enter Your Password Here">
-																				</div>
-																		</div>
-																</div>
-																<div class="row">
-																		<button type="submit" class="btn btn-primary btn-block" id="login">Log in</button>
-																</div>
-																<div class="row">
-																		<br>
-																		<p id="loginMessage"></p>
-																</div>
-																<div class="row">
+                    <center>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xs-12 col-lg-12">
+                                <h1>Login</h1>
+                            </div>
+                            <div class="col-xs-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="user">Username:</label>
+                                    <input type="text" class="form-control" id="userName" placeholder="Enter Your Username Here">
+                                    <label for="pass">Password:</label>
+                                    <input type="password" class="form-control" id="password" placeholder="Enter Your Password Here">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary btn-block" id="login">Log in</button>
+                        </div>
+                        <div class="row">
+                            <br>
+                            <p id="loginMessage"></p>
+                        </div>
+												<div class="row">
 
-																		<div class="col-4">
-																				<br><hr>
-																		</div>
-																		<div class="col-4"> 
-																				<br><center><h3>or</h3></center>
-																		</div>
-																		<div class="col-4">
-																				<br><hr>
-																		</div>
-																</div>
-
-																<div class="row">
-																		<div class="col-xs-12 col-lg-12">
-																				<h1>Sign Up</h1>
-																		</div>
-																		<div class="col-xs-12 col-lg-12">
-																				<div class="form-group">
-																						<label for="user">Username:</label>
-																						<input type="text" class="form-control" id="signName" placeholder="Enter Your Username Here">
-																						<label for="pass">Password:</label>
-																						<input type="password" class="form-control" id="signPassword" placeholder="Enter Your Password Here">
-																				</div>
-																		</div>
-																</div>
-																<div class="row">
-																		<button type="submit" class="btn btn-primary btn-block" id="signup">Sign Up</button>
-																</div>
-																<div class="row">
-																		<br>
-																		<p id="signMessage"></p>
-																</div>
-
+														<div class="col-4">
+																<br><hr>
 														</div>
-												</center>
+														<div class="col-4"> 
+																<br><center><h3>or</h3></center>
+														</div>
+														<div class="col-4">
+																<br><hr>
+														</div>
+												</div>
+
+												<div class="row">
+														<div class="col-xs-12 col-lg-12">
+																<h1>Sign Up</h1>
+														</div>
+														<div class="col-xs-12 col-lg-12">
+																<div class="form-group">
+																		<label for="user">Username:</label>
+																		<input type="text" class="form-control" id="signName" placeholder="Enter Your Username Here">
+																		<label for="pass">Password:</label>
+																		<input type="password" class="form-control" id="signPassword" placeholder="Enter Your Password Here">
+																</div>
+														</div>
+												</div>
+												<div class="row">
+														<button type="submit" class="btn btn-primary btn-block" id="signup">Sign Up</button>
+												</div>
+												<div class="row">
+													<br>
+													<p id="signMessage"></p>
+												</div>
+
+										</div>
+										</center>
 										</div>
 										<div class="col-sm-1 hidden-xs" style="background-color:#fefbd8"></div>
 										<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>

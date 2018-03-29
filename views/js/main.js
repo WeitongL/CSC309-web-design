@@ -29,6 +29,8 @@ $(document).ready(function(){
     });
 
 		$('#addFav').click(addFavourite);
+
+		$('#uniHeader').click(showFavouriteUnis);
 });
 
 // Given a string of the university name
@@ -225,6 +227,9 @@ function openTab(evt, tabName) {
     }
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
+		if (login_status){
+				$('#uniRow').css("display","");
+		}
 }
 
 // return the sepecific component(city/state/country abberivation) of an given address
@@ -363,17 +368,53 @@ function logIn(logName, passwd) {
     });
 }
 
+// Attached to the button "Add Favourites" which only appears when
+// logged in. 
 function addFavourite(){
 		console.log("adding favourite");
 		var address = $('#basicAddress').text();
 		var uniName = $('#uniName').val();
 		$.ajax({
-				type:"POST",
+				type:"PUT",
 				url: 'http://localhost:3000/favourite',
 				data: {name:uniName,fav:address},
 				success: function(data){
 						console.log("successfully added favourite");
 						console.log(data);
+				},
+				error: function(xhr, status, error){
+						console.log(xhr.responseText);
+				}
+		});
+}
+
+// Attached to the See Favourite Universities
+// Displays a list of universities
+function showFavouriteUnis(){
+		console.log("SHOW ME");
+		$.ajax({
+				type:"GET",
+				url: 'http://localhost:3000/favourite',
+				success: function(data){
+						console.log(data);
+						$('#savedUnis').hide();
+						$('#savedUnis').empty();
+						$.each(data, function(index, value){
+								$('<h5>').text(value[0]).appendTo($('#savedUnis')).click(function(){
+										// When clicked, enter that university and enter
+										$('#uniName').val(value[0]);
+										$('#uniSubmit').click();
+										// Scroll down
+										$('html, body').animate({
+												scrollTop: $('#basicAdd').offset().top
+										}, 'slow');
+								});
+								$('<p>').text(value[1]).appendTo($('#savedUnis'));
+								$('<hr>').appendTo($('#savedUnis'));
+						});
+						$('#savedUnis').slideDown(600);
+						
+						
 				},
 				error: function(xhr, status, error){
 						console.log(xhr.responseText);

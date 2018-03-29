@@ -108,7 +108,10 @@ app.post('/signup/', function(req, res){
 
 });
 
-app.post('/favourite/', function(req,res){
+// Update when the user adds a new favourite university
+app.put('/favourite/', function(req,res){
+		// req.body.fav is the address
+		// req.body.name is the query
 		if (req.session.user){
 				var address = req.body.fav;
 				MongoClient.connect(uri, function(err, client){
@@ -117,6 +120,27 @@ app.post('/favourite/', function(req,res){
 						db.collection("users").updateOne(
 								{username:req.session.user.username},
 								{$push: {saved : [req.body.name, req.body.fav]}}
+						);
+				});
+		} else{
+				res.status(500).send("User is not logged in!");
+		}
+});
+
+// Get the user's favourite universities
+app.get('/favourite/', function(req,res){
+		if (req.session.user){
+				MongoClient.connect(uri, function(err, client){
+						var db = client.db("wtdb");
+						db.collection("users").findOne(
+								{username:req.session.user.username},
+								function(error, result){
+										if (result){
+												res.status(200).send(result.saved);
+										} else{
+												res.status(500).send(error);
+										}
+								}
 						);
 				});
 		} else{
