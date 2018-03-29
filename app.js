@@ -117,7 +117,7 @@ app.put('/favourite/', function(req,res){
 				MongoClient.connect(uri, function(err, client){
 						console.log(req.session.user.username + " connected"); 
 						var db = client.db("wtdb");
-                        db.collection("users").find({username:req.session.user.username, "saved.fav" : req.body.fav}, function(error, result) {
+                        db.collection("users").findOne({username:req.session.user.username, saved : {$elemMatch: {$elemMatch: {$in:[req.body.fav]}}}}, function(error, result) {
                             if (result) {
                                 
                                 console.log("Already saved");

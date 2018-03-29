@@ -404,6 +404,7 @@ function showFavouriteUnis(){
 						$('#savedUnis').hide();
 						$('#savedUnis').empty();
 						$.each(data, function(index, value){
+                                $("<div class='deleteMe'>X</div>").appendTo($('#savedUnis'));
 								$('<h5>').text(value[0]).appendTo($('#savedUnis')).click(function(){
 										// When clicked, enter that university and enter
 										$('#uniName').val(value[0]);
@@ -413,8 +414,10 @@ function showFavouriteUnis(){
 												scrollTop: $('#basicAdd').offset().top
 										}, 'slow');
 								});
+                               
 								$('<p>').text(value[1]).appendTo($('#savedUnis'));
 								$('<hr>').appendTo($('#savedUnis'));
+                                //$("<div class='deleteMe'>X</div>").appendTo($('#savedUnis'));
 						});
 						$('#savedUnis').slideDown(600);
 						
