@@ -75,10 +75,11 @@ app.post('/signup/', function(req, res){
 		console.log(req.body);
 		var user = req.body.username;
 		var pass = req.body.password;
+		req.body['saved'] = [];
 		MongoClient.connect(uri, function(err, client){
 				if(!pass){
-					res.status(500).send("Password cannot be empty.");
-				client.close();
+						res.status(500).send("Password cannot be empty.");
+						client.close();
 				}
 				if (err) console.log(err);
 				var db = client.db("wtdb");
@@ -107,12 +108,17 @@ app.post('/signup/', function(req, res){
 
 });
 
-app.post('/favourite', function(req,res){
+app.post('/favourite/', function(req,res){
 		if (req.session.user){
 				var address = req.body.fav;
-				console.log("Successfully received favourite");
-				console.log(address); 
-				res.status(200).send(address);
+				MongoClient.connect(uri, function(err, client){
+						console.log(req.session.user.username + " connected"); 
+						var db = client.db("wtdb");
+						db.collection("users").updateOne(
+								{username:req.session.user.username},
+								{$push: {saved : [req.body.name, req.body.fav]}}
+						);
+				});
 		} else{
 				res.status(500).send("User is not logged in!");
 		}
