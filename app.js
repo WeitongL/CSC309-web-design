@@ -117,11 +117,23 @@ app.put('/favourite/', function(req,res){
 				MongoClient.connect(uri, function(err, client){
 						console.log(req.session.user.username + " connected"); 
 						var db = client.db("wtdb");
-						db.collection("users").updateOne(
-								{username:req.session.user.username},
-								{$push: {saved : [req.body.name, req.body.fav]}}
-						);
-				});
+                        db.collection("users").find({username:req.session.user.username, "saved.fav" : req.body.fav}, function(error, result) {
+                            if (result) {
+                                
+                                console.log("Already saved");
+                                res.status(500).send("Already saved");
+                            }
+                            else {
+                                console.log("Successfully added");
+						        db.collection("users").updateOne(
+								    {username:req.session.user.username},
+								    {$push: {saved : [req.body.name, req.body.fav]}}
+						        );
+                                res.status(200).send("Successfully added");
+                            }
+                       
+				        });
+                });
 		} else{
 				res.status(500).send("User is not logged in!");
 		}

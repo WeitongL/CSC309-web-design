@@ -14,6 +14,7 @@ var login_status = false;
 $(document).ready(function(){
     console.log("Ready");
     // openTab(event, "Login");
+    login_status = JSON.parse(sessionStorage.getItem("login_status"));
     $('#uniSubmit').click(function(){
         console.log("button was clicked");
         getAddress($('#uniName').val());
@@ -361,6 +362,7 @@ function logIn(logName, passwd) {
         success: function(data){
             $('#loginMessage').empty().text("Login Successful!").css('color', 'green');
             login_status = true;
+            sessionStorage.setItem("login_status", JSON.stringify(login_status));
 				},
         error: function(xhr, status, error){
             $('#loginMessage').empty().text(xhr.responseText).css('color', 'red');
@@ -381,8 +383,10 @@ function addFavourite(){
 				success: function(data){
 						console.log("successfully added favourite");
 						console.log(data);
+                        alert("University successfully added!");
 				},
 				error: function(xhr, status, error){
+                        alert("University already saved");
 						console.log(xhr.responseText);
 				}
 		});
