@@ -369,7 +369,7 @@ function addFavourite(){
 		var uniName = $('#uniName').val();
 		$.ajax({
 				type:"POST",
-				url: 'favourite',
+				url: 'http://localhost:3000/favourite',
 				data: {name:uniName,fav:address},
 				success: function(data){
 						console.log("successfully added favourite");
