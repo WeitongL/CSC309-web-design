@@ -409,7 +409,7 @@ function showFavouriteUnis(){
 						$('#savedUnis').empty();
 						$.each(data, function(index, value){
                                 var $newDiv = $("<div/>").html("<button class='deleteBut'> X </button>");
-								$('<h5>').text(value[0]).appendTo($newDiv).click(function(){
+								$('<h5>').text(value[0] + "  (click to see on the map)").appendTo($newDiv).click(function(){
 										// When clicked, enter that university and enter
 										$('#uniName').val(value[0]);
 										$('#uniSubmit').click();
