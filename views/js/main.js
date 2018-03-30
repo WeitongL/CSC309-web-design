@@ -32,8 +32,8 @@ $(document).ready(function(){
 		$('#addFav').click(addFavourite);
 
 		$('#uniHeader').click(showFavouriteUnis);
-        $(document).on('click','.deleteMe',function() {
-            deleteFavourite($(':nth-child(2)', $(this)).text(), $(':nth-child(3)', $(this)).text());
+        $(document).on('click','.deleteBut',function() {
+            deleteFavourite($(this).next().text(), $(this).next().next().text());
             $(this).closest("div").remove();
         });
 });
@@ -408,7 +408,7 @@ function showFavouriteUnis(){
 						$('#savedUnis').hide();
 						$('#savedUnis').empty();
 						$.each(data, function(index, value){
-                                var $newDiv = $("<div/>").addClass("deleteMe").html("<div>X</div>");
+                                var $newDiv = $("<div/>").html("<button class='deleteBut'> X </button>");
 								$('<h5>').text(value[0]).appendTo($newDiv).click(function(){
 										// When clicked, enter that university and enter
 										$('#uniName').val(value[0]);
