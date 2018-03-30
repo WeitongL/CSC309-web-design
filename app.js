@@ -160,4 +160,24 @@ app.get('/favourite/', function(req,res){
 		}
 });
 
+app.delete('/favourite/', function(req, res) {
+    if (req.session.user) {
+        MongoClient.connect(uri, function(err, client) {
+            var db = client.db("wtdb");
+            db.collection("users").findOne({username:req.session.user.username, saved : {$elemMatch: {$elemMatch: {$in:[req.body.fav]}}}}, function(error, result) {
+                if (result) {
+                    console.log("successfully removed");
+                    db.collection("users").updateOne(
+                            {username: req.session.user.username},
+                            {$pull: {saved : [req.body.name, req.body.fav]}}
+                    );
+                    res.status(200).send("success");
+                } else {
+                    res.status(500).send(error);
+                }
+            });
+        });
+    }
+});
+
 app.listen(3000,() => console.log("Listening"));

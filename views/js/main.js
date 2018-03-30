@@ -33,6 +33,7 @@ $(document).ready(function(){
 
 		$('#uniHeader').click(showFavouriteUnis);
         $(document).on('click','.deleteMe',function() {
+            deleteFavourite($(':nth-child(2)', $(this)).text(), $(':nth-child(3)', $(this)).text());
             $(this).closest("div").remove();
         });
 });
@@ -431,4 +432,19 @@ function showFavouriteUnis(){
 						console.log(xhr.responseText);
 				}
 		});
+}
+
+function deleteFavourite(uniName, uniAddress){
+    $.ajax({
+        type:"DELETE",
+        url: 'http://localhost:3000/favourite',
+        data: {name: uniName, fav:uniAddress},
+        success: function(data) {
+                console.log("successfully deleted favourite");
+                alert("Selected University successfully deleted!");
+        },
+        error: function(xhr, status, error) {
+                console.log(xhr.responseText);
+        }
+    });
 }
