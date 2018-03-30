@@ -32,6 +32,9 @@ $(document).ready(function(){
 		$('#addFav').click(addFavourite);
 
 		$('#uniHeader').click(showFavouriteUnis);
+        $(document).on('click','.deleteMe',function() {
+            $(this).closest("div").remove();
+        });
 });
 
 // Given a string of the university name
@@ -404,8 +407,8 @@ function showFavouriteUnis(){
 						$('#savedUnis').hide();
 						$('#savedUnis').empty();
 						$.each(data, function(index, value){
-                                $("<div class='deleteMe'>X</div>").appendTo($('#savedUnis'));
-								$('<h5>').text(value[0]).appendTo($('#savedUnis')).click(function(){
+                                var $newDiv = $("<div/>").addClass("deleteMe").html("<div>X</div>");
+								$('<h5>').text(value[0]).appendTo($newDiv).click(function(){
 										// When clicked, enter that university and enter
 										$('#uniName').val(value[0]);
 										$('#uniSubmit').click();
@@ -415,9 +418,10 @@ function showFavouriteUnis(){
 										}, 'slow');
 								});
                                
-								$('<p>').text(value[1]).appendTo($('#savedUnis'));
-								$('<hr>').appendTo($('#savedUnis'));
-                                //$("<div class='deleteMe'>X</div>").appendTo($('#savedUnis'));
+								$('<p>').text(value[1]).appendTo($newDiv);
+								$('<hr>').appendTo($newDiv);
+                                ($newDiv).appendTo($('#savedUnis'));
+                                
 						});
 						$('#savedUnis').slideDown(600);
 						
