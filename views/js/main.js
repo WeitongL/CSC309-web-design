@@ -14,7 +14,7 @@ var login_status = false;
 $(document).ready(function(){
     console.log("Ready");
     // openTab(event, "Login");
-    
+   
     login_status = JSON.parse(sessionStorage.getItem("login_status"));
      if (login_status == true){
         $('#logout').css("display","");
@@ -41,7 +41,7 @@ $(document).ready(function(){
 
     $('#addFav').click(addFavourite);
 
-    $('#uniHeader').click(showFavouriteUnis);
+    // $('#uniHeader').click(showFavouriteUnis);
     $(document).on('click','.deleteBut',function() {
         deleteFavourite($(this).next().text(), $(this).next().next().text());
         $(this).closest("div").remove();
@@ -244,9 +244,11 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 
     if (login_status == false){
+        showFavouriteUnis();
         $('#uniRow').css("display","none");
     }
     if (login_status == true){
+        showFavouriteUnis();
         $('#uniRow').css("display","");
     }
 }
