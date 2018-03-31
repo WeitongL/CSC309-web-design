@@ -358,12 +358,7 @@ function qualityOfLife(city){
 }
 
 function signUp(signName, signPassword){
-    if (!login_status){
-        $('#logout').css("display","");
-    }
-    else{
-        $('#logout').css("display","none");
-    }
+
   $.ajax({
     type:"POST",
     url:'http://localhost:3000/signup',
