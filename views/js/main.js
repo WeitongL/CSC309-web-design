@@ -14,7 +14,7 @@ var school;
 $(document).ready(function(){
     console.log("Ready");
     // openTab(event, "Login");
-   
+    document.getElementById('Login').style.display = "block"; 
     login_status = JSON.parse(sessionStorage.getItem("login_status"));
      if (login_status == true){
         $('#logout').css("display","");
