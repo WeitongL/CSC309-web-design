@@ -8,7 +8,7 @@ var usersession;
 var userpass;
 console.log("Loaded");
 var login_status = false;
-
+var school;
 // Gets the address users searched
 // When they clicked submit button
 $(document).ready(function(){
@@ -88,6 +88,7 @@ function getAddress(uniName){
                 restaurant_search(location);
                 lib_search(location);
                 qualityOfLife(city); 
+                specificUniName(location);
             } catch (TypeError) {
                 alert("invalid university name!");
             }
@@ -98,6 +99,27 @@ function getAddress(uniName){
         }
     });
 }
+
+function specificUniName(location) {
+    var request = {
+        location: location,
+        radius: '500',
+        type: ['university']
+    };
+    service = new google.maps.places.PlacesService(map);
+    service.nearbySearch(request, callbackU);
+}
+
+function callbackU(results, status) {
+    if (status == google.maps.places.PlacesServiceStatus.OK) {
+        //get the closest university near the location
+       school = results[0].name;
+    } else {
+        //If there's no universities near the location, just put what user input
+        school = $('#uniName').val();
+    }
+}
+
 
 // reference: https://developers.google.com/maps/documentation/javascript/
 // Given a string of location
@@ -263,6 +285,7 @@ function get_component(add, target) {
     return '';
 }
 
+
 // use api to find crime counts for US
 function crime(country, state) {
   console.log(country + ' ' + state);
@@ -408,7 +431,8 @@ function logIn(logName, passwd) {
 function addFavourite(){
   console.log("adding favourite");
   var address = $('#basicAddress').text();
-  var uniName = $('#uniName').val();
+  //var uniName = $('#uniName').val();
+  var uniName = school;
   $.ajax({
     type:"PUT",
     url: 'http://localhost:3000/favourite',
