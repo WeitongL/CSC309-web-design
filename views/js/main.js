@@ -40,9 +40,10 @@ $(document).ready(function(){
     });
 
     $('#addFav').click(addFavourite);
+		
+    $('#uniHeader').click(showFavouriteUnis);
 
-    // $('#uniHeader').click(showFavouriteUnis);
-    $(document).on('click','.deleteBut',function() {
+		$(document).on('click','.deleteBut',function() {
         deleteFavourite($(this).next().text(), $(this).next().next().text());
         $(this).closest("div").remove();
     });
@@ -266,11 +267,9 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
 
     if (login_status == false){
-        showFavouriteUnis();
         $('#uniRow').css("display","none");
     }
     if (login_status == true){
-        showFavouriteUnis();
         $('#uniRow').css("display","");
     }
 }
@@ -381,12 +380,7 @@ function qualityOfLife(city){
 }
 
 function signUp(signName, signPassword){
-    if (!login_status){
-        $('#logout').css("display","");
-    }
-    else{
-        $('#logout').css("display","none");
-    }
+
   $.ajax({
     type:"POST",
     url:'http://localhost:3000/signup',
@@ -440,69 +434,91 @@ function addFavourite(){
     success: function(data){
       console.log("successfully added favourite");
       console.log(data);
-      alert("University successfully added!");
-  },
-  error: function(xhr, status, error){
-    alert("University already saved");
-    console.log(xhr.responseText);
-}
-});
+				alert("University successfully added!");
+				if ($('#savedUnis').is(":visible")){
+						var $newDiv = $("<div/>").html("<button class='deleteBut'> X </button>");
+						$('<h5>').text(uniName + "  (click to see on the map)").appendTo($newDiv).click(function(){
+								// When clicked, enter that university and enter
+								$('#uniName').val(uniName);
+								$('#uniSubmit').click();
+								// Scroll down
+								$('html, body').animate({
+										scrollTop: $('#basicAdd').offset().top
+								}, 'slow');
+						});
+
+						$('<p>').text(address).appendTo($newDiv);
+						$('<hr>').appendTo($newDiv);
+						($newDiv).appendTo($('#savedUnis'));
+				}
+		},
+			error: function(xhr, status, error){
+					alert("University already saved");
+					console.log(xhr.responseText);
+			}
+	});
 }
 // Attached to the See Favourite Universities
 // Displays a list of universities
 function showFavouriteUnis(){
     console.log("SHOW ME");
-    $.ajax({
-        type:"GET",
-        url: 'http://localhost:3000/favourite',
-        success: function(data){
-            console.log(data);
-            $('#savedUnis').hide();
-            $('#savedUnis').empty();
-            $.each(data, function(index, value){
-                var $newDiv = $("<div/>").html("<button class='deleteBut'> X </button>");
-                $('<h5>').text(value[0] + "  (click to see on the map)").appendTo($newDiv).click(function(){
-                                        // When clicked, enter that university and enter
-                                        $('#uniName').val(value[0]);
-                                        $('#uniSubmit').click();
-                                        // Scroll down
-                                        $('html, body').animate({
-                                            scrollTop: $('#basicAdd').offset().top
-                                        }, 'slow');
-                                    });
+		if ($('#savedUnis').is(":visible")){
+				$('#savedUnis').slideUp(600);
+				$('#savedUnis').empty();
+		}
+		else{
+				$.ajax({
+						type:"GET",
+						url: 'http://localhost:3000/favourite',
+						success: function(data){
+								console.log(data);
+								$('#savedUnis').hide();
+								$('#savedUnis').empty();
+								$.each(data, function(index, value){
+										var $newDiv = $("<div/>").html("<button class='deleteBut'> X </button>");
+										$('<h5>').text(value[0] + "  (click to see on the map)").appendTo($newDiv).click(function(){
+												// When clicked, enter that university and enter
+												$('#uniName').val(value[0]);
+												$('#uniSubmit').click();
+												// Scroll down
+												$('html, body').animate({
+														scrollTop: $('#basicAdd').offset().top
+												}, 'slow');
+										});
 
-                $('<p>').text(value[1]).appendTo($newDiv);
-                $('<hr>').appendTo($newDiv);
-                ($newDiv).appendTo($('#savedUnis'));
+										$('<p>').text(value[1]).appendTo($newDiv);
+										$('<hr>').appendTo($newDiv);
+										($newDiv).appendTo($('#savedUnis'));
 
-            });
-            $('#savedUnis').slideDown(600);
+								});
+								$('#savedUnis').slideDown(600);
 
 
-        },
-        error: function(xhr, status, error){
-            console.log(xhr.responseText);
-        }
-    });
+						},
+						error: function(xhr, status, error){
+								console.log(xhr.responseText);
+						}
+				});
+		}
 }
 function deleteFavourite(uniName, uniAddress){
-    $.ajax({
-        type:"DELETE",
-        url: 'http://localhost:3000/favourite',
-        data: {name: uniName, fav:uniAddress},
-        success: function(data) {
-            console.log("successfully deleted favourite");
-            alert("Selected University successfully deleted!");
-        },
-        error: function(xhr, status, error) {
-            console.log(xhr.responseText);
-        }
-    });
+		$.ajax({
+				type:"DELETE",
+				url: 'http://localhost:3000/favourite',
+				data: {name: uniName, fav:uniAddress},
+				success: function(data) {
+						console.log("successfully deleted favourite");
+						alert("Selected University successfully deleted!");
+				},
+				error: function(xhr, status, error) {
+						console.log(xhr.responseText);
+				}
+		});
 }
 function logout(){
     
 
-    $.ajax({
+		$.ajax({
         type:"GET",
         url:"http://localhost:3000/logout",
         success: function(data){
