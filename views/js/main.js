@@ -16,7 +16,7 @@ $(document).ready(function(){
     // openTab(event, "Login");
     
     login_status = JSON.parse(sessionStorage.getItem("login_status"));
-     if (login_status){
+     if (login_status == true){
         $('#logout').css("display","");
          $('#login').css("display","none");
     }
@@ -243,11 +243,11 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
 
-    if (login_status){
-        $('#uniRow').css("display","");
-    }
-    else{
+    if (login_status == false){
         $('#uniRow').css("display","none");
+    }
+    if (login_status == true){
+        $('#uniRow').css("display","");
     }
 }
 
@@ -388,13 +388,11 @@ function logIn(logName, passwd) {
         success: function(data){
             $('#loginMessage').empty().text("Login Successful!").css('color', 'green');
             login_status = true;
-          
-        $('#logout').css("display","");
-       
-  
-        $('#login').css("display","none");
-        $('#userName').empty();
-        $('#password').empty();
+            $('#logout').css("display","");
+            $('#login').css("display","none");
+
+        $('#userName').val("");
+        $('#password').val("");
           sessionStorage.setItem("login_status", JSON.stringify(login_status));
         },
         error: function(xhr, status, error){
