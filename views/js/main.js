@@ -16,6 +16,14 @@ $(document).ready(function(){
     // openTab(event, "Login");
     
     login_status = JSON.parse(sessionStorage.getItem("login_status"));
+     if (login_status){
+        $('#logout').css("display","");
+         $('#login').css("display","none");
+    }
+    else{
+        $('#logout').css("display","none");
+         $('#login').css("display","");
+    }
     $('#uniSubmit').click(function(){
         console.log("button was clicked");
         getAddress($('#uniName').val());
@@ -234,15 +242,12 @@ function openTab(evt, tabName) {
     }
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
+
     if (login_status){
         $('#uniRow').css("display","");
-         $('#logout').css("display","");
-          $('#login').css("display","none");
     }
     else{
         $('#uniRow').css("display","none");
-        $('#logout').css("display","none");
-        $('#login').css("display","")
     }
 }
 
@@ -383,10 +388,14 @@ function logIn(logName, passwd) {
         success: function(data){
             $('#loginMessage').empty().text("Login Successful!").css('color', 'green');
             login_status = true;
-        $('#login').css("display","none");
+          
         $('#logout').css("display","");
-   
-            sessionStorage.setItem("login_status", JSON.stringify(login_status));
+       
+  
+        $('#login').css("display","none");
+        $('#userName').empty();
+        $('#password').empty();
+          sessionStorage.setItem("login_status", JSON.stringify(login_status));
         },
         error: function(xhr, status, error){
             $('#loginMessage').empty().text(xhr.responseText).css('color', 'red');
