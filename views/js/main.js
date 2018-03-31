@@ -14,6 +14,7 @@ var login_status = false;
 $(document).ready(function(){
     console.log("Ready");
     // openTab(event, "Login");
+    
     login_status = JSON.parse(sessionStorage.getItem("login_status"));
     $('#uniSubmit').click(function(){
         console.log("button was clicked");
@@ -235,6 +236,13 @@ function openTab(evt, tabName) {
     evt.currentTarget.className += " active";
     if (login_status){
         $('#uniRow').css("display","");
+         $('#logout').css("display","");
+          $('#login').css("display","none");
+    }
+    else{
+        $('#uniRow').css("display","none");
+        $('#logout').css("display","none");
+        $('#login').css("display","")
     }
 }
 
@@ -343,18 +351,23 @@ function qualityOfLife(city){
 }
 
 function signUp(signName, signPassword){
-
+    if (!login_status){
+        $('#logout').css("display","");
+    }
+    else{
+        $('#logout').css("display","none");
+    }
   $.ajax({
     type:"POST",
     url:'http://localhost:3000/signup',
     data: { username: signName,
-        
+
         password: signPassword
-        },
-        success: function(data){
-          $('#signMessage').empty().text("Successfully Signed Up!").css('color','green');
-      },
-      error: function(xhr, status, error){
+    },
+    success: function(data){
+      $('#signMessage').empty().text("Successfully Signed Up!").css('color','green');
+  },
+  error: function(xhr, status, error){
 						// Add proper error messages
 						$('#signMessage').empty().text(xhr.responseText).css('color','red');
 						
@@ -370,6 +383,9 @@ function logIn(logName, passwd) {
         success: function(data){
             $('#loginMessage').empty().text("Login Successful!").css('color', 'green');
             login_status = true;
+        $('#login').css("display","none");
+        $('#logout').css("display","");
+   
             sessionStorage.setItem("login_status", JSON.stringify(login_status));
         },
         error: function(xhr, status, error){
@@ -451,6 +467,8 @@ function deleteFavourite(uniName, uniAddress){
     });
 }
 function logout(){
+    
+
     $.ajax({
         type:"GET",
         url:"http://localhost:3000/logout",
@@ -458,6 +476,8 @@ function logout(){
             $('#savedUnis').empty();
             $('#loginMessage').empty().text("Logout Successful!").css('color', 'green');
             login_status = false;
+            $('#logout').css("display","none");
+            $('#login').css("display","");
             sessionStorage.setItem("login_status", JSON.stringify(login_status));
         },
         error: function(xhr, status, error){
