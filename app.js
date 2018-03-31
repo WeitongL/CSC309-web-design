@@ -182,10 +182,11 @@ app.delete('/favourite/', function(req, res) {
             var db = client.db("wtdb");
             db.collection("users").findOne({username:req.session.user.username, saved : {$elemMatch: {$elemMatch: {$in:[req.body.fav]}}}}, function(error, result) {
                 if (result) {
+                	console.log(req.body);
                     console.log("successfully removed");
                     db.collection("users").updateOne(
                             {username: req.session.user.username},
-                            {$pull: {saved : [req.body.name, req.body.fav]}}
+                            {$pull: {saved : [req.body.name.slice(0, -27), req.body.fav]}}
                     );
                     res.status(200).send("success");
                 } else {
