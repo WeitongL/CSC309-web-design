@@ -4,6 +4,8 @@ const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 var MongoClient = require('mongodb').MongoClient;
+// var crypto = require('crypto');
+
 
 const app = express();
 var uri = "mongodb://a3:1234@ds153752.mlab.com:53752/wtdb";
@@ -30,7 +32,13 @@ app.get('/', function(req, res){
 		res.render('index.ejs');
 });
 
+
+
+
+
 app.post('/login/', function(req, res) {
+	if (req.session.user) { res.status(500).send("Already logged in.");}
+	else{
     console.log(req.body);
     var user1 = req.body.username;
     var pass1 = req.body.password;
@@ -43,6 +51,9 @@ app.post('/login/', function(req, res) {
             console.log(err);
         }
         var db = client.db("wtdb");
+        db.collection("users").findOne({
+        	
+        })
         db.collection("users").findOne({$and: [{username: user1}, {password: pass1}]}, function(error, result) {
             //if username and password is correct
             if (result) {
@@ -64,7 +75,7 @@ app.post('/login/', function(req, res) {
 								});
             }
         });
-    });
+    });}
 });
 
 // See the front end's username and password
@@ -73,10 +84,15 @@ app.post('/signup/', function(req, res){
 		// username:username
 		// password:password
 		console.log(req.body);
+
+    	// var salt = getRandomSalt();
+    	// req.body['password'] = cryptPwd(req.body.password,salt);
+    	// req.body['salt'] = salt;
+    	req.body['saved'] = [];
+
 		var user = req.body.username;
 		var pass = req.body.password;
-		req.body['saved'] = [];
-		MongoClient.connect(uri, function(err, client){
+				MongoClient.connect(uri, function(err, client){
 				if(!pass){
 						res.status(500).send("Password cannot be empty.");
 						client.close();
@@ -179,5 +195,35 @@ app.delete('/favourite/', function(req, res) {
         });
     }
 });
+
+app.get('/logout/', function(req, res) {
+    if (req.session.user) {
+ 	delete req.session.user;
+ 	delete app.locals.user;
+  	res.redirect('/');
+    }else{
+    	res.status(500).send("You are not logged in.");
+    }
+});
+
+
+// function getRandomSalt(){
+//     return Math.random().toString().slice(2, 5);
+// }
+
+// function cryptPwd(password, salt) {
+   
+//     var hash = crypto.createHmac('sha512', salt);
+//     hash.update(password);
+//     var result = hash.digest('hex');
+//     return result;
+    
+// };
+
+
+
+
+
+
 
 app.listen(3000,() => console.log("Listening"));
