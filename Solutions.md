@@ -2,6 +2,7 @@
 
 ## Login Tab
 A login and sign up screen with username and password.  
+Information is encrypted (but not HTTPS)  
 User can logout after they have succesfully login.  
 
 
@@ -9,11 +10,13 @@ User can logout after they have succesfully login.
 Type in the name of a university.  
 The site will retrieve the address and map along with some related information in the area.  
 ### Favourite universities  
-User can choose to add universities to its own facourite, only after they succesfully login to the site.  
-User can only add one entry to favourite per university, and only the official name of the university will be used for the entry.  
-User can see and hide saved favourite university on the site, and access those univesities directly from favourite.  
-They can also delete universities from favourite.  
-### support assets  
+Once logged in, uses can:  
+ * choose to add universities to their favourites  
+ * add one entry to favourites per university; only the official name of the university will be used for the entry.  
+ * see and hide saved favourite universities  
+ * access those univesities directly by clicking on them.  
+ * delete universities from favourite.  
+### Supported Assets  
 So far this includes: Nearby resturants, nearby libraries, public transit and crime rate.  
 Top ten nearby restaurants within 1km and top ten nearby libraries within 500m are sorted by the Google's rating system.  
 On the map, red pins display nearby restaurants and blue pins display nearby libraries.  
