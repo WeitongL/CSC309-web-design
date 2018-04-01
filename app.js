@@ -43,9 +43,13 @@ app.post('/login/', function(req, res) {
 		var user1 = req.body.username;
 		var pass1 = req.body.password;
 		MongoClient.connect(uri, function(err, client) {
+			if(!user1){
+				client.close()
+				return res.status(500).send("Please enter the username.")
+			}
 			if (!pass1){
 				client.close();
-				return res.status(500).send("Enter the password.");
+				return res.status(500).send("Please enter the password.");
 			}
 			if (err) {
 				console.log(err);
@@ -97,23 +101,31 @@ app.post('/signup/', function(req, res){
 		// username:username
 		// password:password
 		// console.log(req.body);
+		if(!req.body.username){
+			return res.status(500).send("Username cannot be empty.");
 
-		var salt = getRandomSalt();
-		req.body['password'] = cryptPwd(req.body.password,salt);
-		req.body['salt'] = salt;
-		req.body['saved'] = [];
+		}
+		else if(!req.body.password){
+			return res.status(500).send("Password cannot be empty.");
+		}
+		else{
+			var salt = getRandomSalt();
+			req.body['password'] = cryptPwd(req.body.password,salt);
+			req.body['salt'] = salt;
+			req.body['saved'] = [];
 
-		var user = req.body.username;
-		var pass = req.body.password;
-		MongoClient.connect(uri, function(err, client){
-			if(!pass){
-				res.status(500).send("Password cannot be empty.");
-				client.close();
-			}
-			if (err) console.log(err);
-			var db = client.db("wtdb");
-			db.collection("users").findOne({username:user}, function (error, result){
-				if (result){
+			var user = req.body.username;
+			var pass = req.body.password;
+
+			MongoClient.connect(uri, function(err, client){
+				if(!pass){
+					res.status(500).send("Password cannot be empty.");
+					client.close();
+				}
+				if (err) console.log(err);
+				var db = client.db("wtdb");
+				db.collection("users").findOne({username:user}, function (error, result){
+					if (result){
 								// If the username is in our database, send an error back
 								res.status(500).send("Username Taken!");
 								client.close();
@@ -133,9 +145,9 @@ app.post('/signup/', function(req, res){
 								client.close();
 							}
 						});
-		}); 
+			}); }
 
-	});
+		});
 
 // Update when the user adds a new favourite university
 app.put('/favourite/', function(req,res){
