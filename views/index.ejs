@@ -84,7 +84,7 @@
 		}
     </style>
     </head>
-    <body>
+    <body style="background-color:#485667">
         <!--Tab class-->
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'Login')">Login</button>
@@ -95,8 +95,8 @@
 
         <div class="container-fluid">
         <div class="row">
-        <div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-        <div class="col-sm-1 hidden-xs" style="background-color:#fefbd8"></div>
+        <div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
+        <div class="col-sm-1 hidden-xs" style="background-color:#ffffff"></div>
 
         <div class="col-xs-12 col-sm-10 col-lg-8" style="background-color:#80ced6">
                     
@@ -134,46 +134,46 @@
             </div>
                 
         </div>
-        <div class="col-sm-1 hidden-xs" style="background-color:#fefbd8"></div>
-        <div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+        <div class="col-sm-1 hidden-xs" style="background-color:#ffffff"></div>
+        <div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
         </div>
 				<div class="row" id="uniRow" style="display:none">
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+						<div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
 
 						<div class="col-xs-12 col-lg-10" style="background-color:#80ced6">
 								<center>
 										<h4 id="uniHeader">See Favourite Universities</h4>
 								</center>
-								<div id="savedUnis">
+								<div id="savedUnis" style="display:none">
 								</div>
 						</div>
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+						<div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
 				</div>
 				<div class="row">
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+						<div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
 						<div class="col-xs-12 col-lg-10" style="background-color:#80ced6" id="basicAdd">
 								<div class="row">
 						
-										<div class="col-xs-12 col-lg-2" style="background-color:#0d328f" id="basicBar">
+										<div class="col-xs-12 col-lg-2" style="background-color:#80ced6" id="basicBar">
 												<button type="submit" class="btn btn-secondary btn-block" id="addFav" style="display:none">Add Favourite</button>
 										</div>
-										<div class="col-xs-12 col-lg-8" style="background-color:#ff8c00" id="basicAddress">
+										<div class="col-xs-12 col-lg-8" style="background-color:#80ced6" id="basicAddress">
                 
 										</div>
 
-										<div class="col-lg-2 hidden-md-down" style="background-color:#0d328f"></div>
+										<div class="col-lg-2 hidden-md-down" style="background-color:#80ced6"></div>
 
 
 								</div>
 						</div>
                         
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+						<div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
 				</div>
 				<div class="row">
-						<div class="col-lg-2 hidden-md-down" style="background-color:#abcd12">
+						<div class="col-lg-2 hidden-md-down" style="background-color:#485667">
 								
 						</div>
-						<div class="col-xs-8 col-lg-8" style="background-color:#80ced6" id="map">
+						<div class="col-xs-8 col-lg-8" style="background-color:#ffffff" id="map">
 								<script> 
 								map = new google.maps.Map(document.getElementById('map'), {
 										center: {lat: 43.6628917, lng: -79.3956564}, // default: University of Toronto
@@ -181,39 +181,40 @@
 								});
 								</script>
 						</div>
-						<div class="col-lg-2 hidden-md-down" style="background-color:#abcd12" id="info"></div>
+						<div class="col-lg-2 hidden-md-down" style="background-color:#485667" id="info"></div>
 				</div>
 				<div class="row" id="infoRow" style="display:none">
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-						<div class="hidden-sm-down col-lg-3" style="background-color:#A9A9A9" id="restaurants">
+						<div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
+						<div class="hidden-sm-down col-lg-3" style="background-color:#ffffff" id="restaurants">
             
 						</div>
-						<div class="hidden-sm-down col-lg-4" style='background-color:#B4CD9A'>
-								<h4 id="qualityheader" style='display:none'>City's Quality of Living out of 10</h4>
+						<div class="hidden-sm-down col-lg-4" style="background-color:#80ced6">
+								<h4 id="qualityheader" style="display:none">City's Quality of Living out of 10</h4>
 								<div class="quality" id="qualityBar">
 									
 								</div>
 								<ul id="quality">
 								</ul>
 						</div>
-						<div class="hidden-sm-down col-lg-3" style="background-color:#00FFFF" id="libraries">
+						<div class="hidden-sm-down col-lg-3" style="background-color:#ffffff" id="libraries">
 
 						</div>
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+						<div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
 				</div>
 				</div>
         </div>
         <!--Log in page-->
-        <div id="Login" class="tabcontent" style="background-color:#abcd12">
+        <div id="Login" class="tabcontent" style="background-color:#485667">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-                    <div class="col-sm-1 hidden-xs" style="background-color:#fefbd8"></div>
+                    <div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
+                    <div class="col-sm-1 hidden-xs" style="background-color:#ffffff"></div>
                     <div class="col-xs-12 col-sm-10 col-lg-8" style="background-color:#80ced6">
 												<center>
 														<div class="container-fluid">
 																<div class="row">
-																		<div class="col-xs-12 col-lg-12">
+																	<div class="col-xs-12 col-lg-12">
+																		<br>
 																				<h1>Login</h1>
 																		</div>
 																		<div class="col-xs-12 col-lg-12">
@@ -272,22 +273,27 @@
 														</div>
 												</center>
 										</div>
-										<div class="col-sm-1 hidden-xs" style="background-color:#fefbd8"></div>
-										<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+										<div class="col-sm-1 hidden-xs" style="background-color:#ffffff"></div>
+										<div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
 								</div>
 						</div>
 				</div>
 				<!--About page-->
-				<div id = "About" class="tabcontent" style="background-color:#80ced6">
+				<div id = "About" class="tabcontent" style="background-color:#485667">
 						<div class="container-fluid">
 								<div class="row">
-										<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-										<div class="col-sm-1 hidden-xs" style="background-color:#fefbd8"></div>
-										<div class="col-xs-12 col-sm-10 col-lg-8">
-												<center> <h1>About</h1> </center>
-												<p style="font-size: 1.5em">
-														We are team of 4 formed with Zhiyuan Cheng, Richard Zhan, Tae Hoon Jun, Weitong Luo. We want to build an application that details the quality of living in Universities (in the U.S. and/or Canada). These details may include location, crime rates, transportation, student communities (activities on Facebook or Reddit), resturant ethnicities, rent prices, and many others. Users can research these details and create profiles that store which universities they are interested in.
+										<div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
+										<div class="col-sm-1 hidden-xs" style="background-color:#ffffff"></div>
+										<div class="col-xs-12 col-sm-10 col-lg-8" style="background-color:#80ced6"><br>
+												<center> <h1>About</h1>
+														<h4> Zhiyuan Cheng, Richard Zhan, Tae Hoon Jun, Weitong Luo</h4></center>
+												<hr>
+												<p style="font-size: 1.25em">
+														Unilife details the quality of living in Universities in the U.S. and Canada. These details include location, crime rates, transportation, restaurants, libraries, living expenses, and many others. Users can research these details and create profiles that store which universities they are interested in.</p>
+												<hr>
+												<p style="font-size: 1.25em">
 														Our target users are prospective university students. University is typically atleast a 4 year investment, and it's important to consider what environment you would be staying in.</p>
+												<hr>
 												<h3>Currently Support Assets</h3>
         								<ul>
         										<li>address</li>
@@ -296,26 +302,17 @@
         										<li>all rating are based on Google Map user rating</li>
 														<li>crime rates per 100,000 (U.S.A. supported only)</li>
 														<li>quality of living scores by Teleport</li>
-														<li>...</li>
+														<li>user accounts (encrypted but not HTTPS)</li>
+														<li>can save and delete universities for future reference</li>
         								</ul>
 												<h3>To Do List</h3>
-												<li>Add crime data support for Canada (using database).</li>
 												<li>Other data proposed like student communities</li>
-												<li>Change color scheme. Currently using colors to differentiate divs</li>
+												<li>Implement HTTPS</li>
 										</div>
-										<div class="col-sm-1 hidden-xs" style="background-color:#fefbd8"></div>
-										<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
+										<div class="col-sm-1 hidden-xs" style="background-color:#ffffff"></div>
+										<div class="col-lg-1 hidden-md-down" style="background-color:#485667"></div>
 								</div>
 						</div>
 				</div>
     </body>
 </html>
-
-<!-- container-fluid is a big table that is 100% of the screen's width
-     Each row of the container has 12 columns
-     col-md-4 for example is a div that spans 4-columns wide
-     xs, sm, md, lg are screen sizes
-     col-xs-12 col-md-9 will be a div that spans 12-columns(everything) if the screen is xs or bigger
-     It will span 9-columns if the screen is md or bigger (overrides the xs condition)
-     hidden-xs will hide this div if the screen is xs
-     hidden-sm-down will hide this div if the screen is sm or smaller -->
