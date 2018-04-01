@@ -80,11 +80,12 @@ function getAddress(uniName){
                 if (login_status == true) {
                     $("#basicBar").slideDown(800);
                     document.getElementById("addFav").style.display = "";
-                }    
+                }
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: location,
                     zoom: 15
                 });
+                $('#infoRow').css("display","");
                 crime(country, state);
                 restaurant_search(location);
                 lib_search(location);
@@ -351,32 +352,49 @@ function crime(country, state) {
 
 // Gets the quality of living by city and appends it to the quality list
 function qualityOfLife(city){
-  $('#quality').hide();
-  $('#quality').empty();
-  $('#qualityheader').slideDown(400);
-  $.ajax({
-    type:"GET",
-    url:'https://api.teleport.org/api/urban_areas/slug:' + city.replace(/\ /g,'-').toLowerCase()+'/scores/',
-    dataType: 'json',
-    success: function(data){
-      try{
-        $.each(data.categories, function(i, item){
-          $('<li>')
-          .text(item.name + ': ' +item['score_out_of_10'])
-          .appendTo('#quality');
-      });
-        $('#quality').slideDown(400);
-    } catch (TypeError){
-								console.log("TypeError in quality of life"); // for debug
-                          }
-                      },
-                      error: function(xhr, status, error){
-                          $('<li>')
-                          .text("City Not Supported")
-                          .appendTo('#quality'); 
-                          $('#quality').slideDown(400);
-                      }
-                  });
+    $('#quality').hide();
+    $('#quality').empty();
+    $('#qualityheader').slideDown(400);
+    $.ajax({
+        type:"GET",
+        url:'https://api.teleport.org/api/urban_areas/slug:' + city.replace(/\ /g,'-').toLowerCase()+'/scores/',
+        dataType: 'json',
+        success: function(data){
+            try{
+                $.each(data.categories, function(i, item){
+                    // $('<li>')
+                    //     .text(item.name + ': ' +item['score_out_of_10'])
+                    //     .appendTo('#quality');
+                    $('#qualityBar')
+                        .append($('<p>').addClass('barName').text(item.name))
+                        .append($('<div>').addClass('bar').addClass('').css({
+                            backgroundColor : getRandomColor(),
+                            width : (item['score_out_of_10']*10).toString() + '%'
+                            })
+                            .append($('<div>').text(item['score_out_of_10'].toPrecision(3)))
+                        );
+                });
+                $('#quality').slideDown(400);
+            } catch (TypeError){
+				console.log("TypeError in quality of life"); // for debug
+            }
+        },
+        error: function(xhr, status, error){
+            $('<li>')
+                .text("City Not Supported")
+                .appendTo('#quality'); 
+            $('#quality').slideDown(400);
+        }
+    });
+}
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
 
 function signUp(signName, signPassword){
@@ -532,7 +550,7 @@ function logout(){
         error: function(xhr, status, error){
             $('#loginMessage').empty().text(xhr.responseText).css('color', 'red');
         }
-    })
+    });
 }
 
 

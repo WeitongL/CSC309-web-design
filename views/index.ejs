@@ -68,10 +68,20 @@
             from {opacity: 0;}
             to {opacity: 1;}
         }
-        .nopadding {
-        padding: 0 !important;
-        margin: 0 !important;
-        }
+        .quality {
+    		width: 100%;
+		}
+		.bar {
+			text-align: right;
+    		padding-right: 20px;
+    		line-height: 20px;
+    		color: white;
+    		border-radius: 10px;
+		}
+		.barName {
+			margin-top: .5em;
+			margin-bottom: 0;
+		}
     </style>
     </head>
     <body>
@@ -165,30 +175,29 @@
 						</div>
 						<div class="col-xs-8 col-lg-8" style="background-color:#80ced6" id="map">
 								<script> 
-								 map = new google.maps.Map(document.getElementById('map'), {
-										 center: {lat: 43.6628917, lng: -79.3956564}, // default: University of Toronto
-										 zoom: 15
-								 })
+								map = new google.maps.Map(document.getElementById('map'), {
+										center: {lat: 43.6628917, lng: -79.3956564}, // default: University of Toronto
+										zoom: 15
+								});
 								</script>
 						</div>
 						<div class="col-lg-2 hidden-md-down" style="background-color:#abcd12" id="info"></div>
 				</div>
-				<div class="row">
+				<div class="row" id="infoRow" style="display:none">
 						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-5" style="background-color:#A9A9A9" id="restaurants">
+						<div class="hidden-sm-down col-lg-3" style="background-color:#A9A9A9" id="restaurants">
             
 						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-5" style="background-color:#00FFFF" id="libraries">
-
-						</div>
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-				</div>
-				<div class="row">
-						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
-						<div class="col-xs-12 col-lg-10" style='background-color:#B4CD9A'>
+						<div class="hidden-sm-down col-lg-4" style='background-color:#B4CD9A'>
 								<h4 id="qualityheader" style='display:none'>City's Quality of Living out of 10</h4>
+								<div class="quality" id="qualityBar">
+									
+								</div>
 								<ul id="quality">
 								</ul>
+						</div>
+						<div class="hidden-sm-down col-lg-3" style="background-color:#00FFFF" id="libraries">
+
 						</div>
 						<div class="col-lg-1 hidden-md-down" style="background-color:#abcd12"></div>
 				</div>
@@ -291,7 +300,6 @@
         								</ul>
 												<h3>To Do List</h3>
 												<li>Add crime data support for Canada (using database).</li>
-												<li>Make Teleport's data into a bar graph</li>
 												<li>Other data proposed like student communities</li>
 												<li>Change color scheme. Currently using colors to differentiate divs</li>
 										</div>
