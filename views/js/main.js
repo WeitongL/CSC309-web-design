@@ -354,6 +354,7 @@ function crime(country, state) {
 function qualityOfLife(city){
     $('#quality').hide();
     $('#quality').empty();
+    $('#qualityBar').empty();
     $('#qualityheader').slideDown(400);
     $.ajax({
         type:"GET",
@@ -361,6 +362,7 @@ function qualityOfLife(city){
         dataType: 'json',
         success: function(data){
             try{
+
                 $.each(data.categories, function(i, item){
                     // $('<li>')
                     //     .text(item.name + ': ' +item['score_out_of_10'])
@@ -541,6 +543,7 @@ function logout(){
         url:"http://localhost:3000/logout",
         success: function(data){
             $('#savedUnis').empty();
+            $('#basicBar').hide();
             $('#loginMessage').empty().text("Logout Successful!").css('color', 'green');
             login_status = false;
             $('#logout').css("display","none");
