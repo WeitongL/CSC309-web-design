@@ -44,8 +44,8 @@ app.post('/login/', function(req, res) {
 		var pass1 = req.body.password;
 		MongoClient.connect(uri, function(err, client) {
 			if(!user1){
-				client.close()
-				return res.status(500).send("Please enter the username.")
+				client.close();
+				return res.status(500).send("Please enter the username.");
 			}
 			if (!pass1){
 				client.close();
@@ -55,14 +55,14 @@ app.post('/login/', function(req, res) {
 				console.log(err);
 			}
 			var db = client.db("wtdb");
-			var salt
-			var newpwd
+			var salt;
+			var newpwd;
 			db.collection("users").findOne(
 				{username:user1},
 				function(error, result){
 					if (result){
 						salt = result.salt;
-						newpwd = cryptPwd(pass1,salt)
+						newpwd = cryptPwd(pass1,salt);
 						
 						db.collection("users").findOne({$and: [{username: user1}, {password: newpwd}]}, function(error, result) {
 			            //if username and password is correct
@@ -79,7 +79,7 @@ app.post('/login/', function(req, res) {
 			            			client.close();
 			            		}
 			            		else {
-			            			console.log(error2)
+			            			console.log(error2);
 			            		}
 			            	});
 			            }
@@ -238,18 +238,20 @@ function getRandomSalt(){
 }
 
 function cryptPwd(password, salt) {
-	salt = "" + salt
+	salt = "" + salt;
 	var hash = crypto.createHmac('sha512', salt);
 	hash.update(password);
 	var result = hash.digest('hex');
 	return result;
 
-};
+}
 
-
-
-
-
-
+app.get('/checkLogIn/', function(req, res) {
+	if (req.session.user) {
+		res.status(200).send();
+	} else {
+		res.status(401).send();
+	}
+});
 
 app.listen(3000,() => console.log("Listening"));

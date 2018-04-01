@@ -16,6 +16,7 @@ $(document).ready(function(){
     // openTab(event, "Login");
     document.getElementById('Login').style.display = "block"; 
     login_status = JSON.parse(sessionStorage.getItem("login_status"));
+    checkLogIn();
      if (login_status == true){
         $('#logout').css("display","");
          $('#login').css("display","none");
@@ -43,7 +44,7 @@ $(document).ready(function(){
 		
     $('#uniHeader').click(showFavouriteUnis);
 
-		$(document).on('click','.deleteBut',function() {
+	$(document).on('click','.deleteBut',function() {
         deleteFavourite($(this).next().text(), $(this).next().next().text());
         $(this).closest("div").remove();
     });
@@ -77,6 +78,7 @@ function getAddress(uniName){
                 $('#basicAddress').
                 append($('<h4>').text(address)).
                 slideDown(800);
+                checkLogIn();
                 if (login_status == true) {
                     $("#basicBar").slideDown(800);
                     document.getElementById("addFav").style.display = "";
@@ -266,7 +268,7 @@ function openTab(evt, tabName) {
     }
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active";
-
+    checkLogIn();
     if (login_status == false){
         $('#uniRow').css("display","none");
     }
@@ -536,8 +538,6 @@ function deleteFavourite(uniName, uniAddress){
 		});
 }
 function logout(){
-    
-
 		$.ajax({
         type:"GET",
         url:"http://localhost:3000/logout",
@@ -556,6 +556,19 @@ function logout(){
     });
 }
 
-
-
-
+function checkLogIn() {
+    $.ajax({
+        type:"GET",
+        url:"http://localhost:3000/checkLogIn",
+        success: function(){
+            login_status = true;
+            $('#logout').css("display","");
+            $('#login').css("display","none");
+        },
+        error: function(){
+            login_status = false;
+            $('#logout').css("display","none");
+            $('#login').css("display","");
+        }
+    });
+}
